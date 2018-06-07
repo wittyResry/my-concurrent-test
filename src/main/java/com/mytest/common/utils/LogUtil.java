@@ -18,6 +18,8 @@ package com.mytest.common.utils;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * 日志工具类
  *
@@ -36,6 +38,17 @@ public class LogUtil {
      */
     public static void digest(String format, Object... args) {
         System.out.println(String.format(format, args));
+    }
+
+    /**
+     * 打印下标
+     *
+     * @param format
+     * @param args
+     */
+    public static void digestWithThread(String format, Object... args) {
+        System.out.println(StringUtils.join(String.format(format, args) , String.format(",threadName:%s,threadId:%s",
+            Thread.currentThread().getName(), Thread.currentThread().getId()))));
     }
 
     /**
