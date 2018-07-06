@@ -14,25 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mytest.common.annotation;
+package com.mytest.sharing;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import com.mytest.common.enums.SensitiveTypeEnum;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import com.mytest.common.annotation.GuardedBy;
 
 /**
- * Ãô¸Ð×Ö¶Î
- * 
  * @author liqingyu
- * @since 2018/06/01
+ * @since 2018/07/06
  */
-@Retention(RUNTIME)
-@Target({ FIELD })
-public @interface SensitiveField {
+public class SynchronizedInteger {
+    @GuardedBy("this")
+    private int value;
 
-    SensitiveTypeEnum hiddenType() default SensitiveTypeEnum.NONE;
+    public synchronized int get() {
+        return value;
+    }
+
+    public synchronized void set(int value) {
+        this.value = value;
+    }
 }

@@ -16,23 +16,18 @@
  */
 package com.mytest.common.annotation;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.mytest.common.enums.SensitiveTypeEnum;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 /**
- * 敏感字段
- * 
+ * 非推荐写法
+ *
  * @author liqingyu
- * @since 2018/06/01
+ * @since 2018/07/06
  */
-@Retention(RUNTIME)
-@Target({ FIELD })
-public @interface SensitiveField {
-
-    SensitiveTypeEnum hiddenType() default SensitiveTypeEnum.NONE;
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface NotRecommended {
 }
