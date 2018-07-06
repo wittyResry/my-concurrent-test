@@ -14,25 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mytest.common.annotation;
+package com.mytest.sharing;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import com.mytest.common.enums.SensitiveTypeEnum;
-
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import com.mytest.common.annotation.NotThreadSafe;
 
 /**
- * 敏感字段
- * 
  * @author liqingyu
- * @since 2018/06/01
+ * @since 2018/07/06
  */
-@Retention(RUNTIME)
-@Target({ FIELD })
-public @interface SensitiveField {
+@NotThreadSafe
+public class MutableInteger {
+    /** 未被同步的变量，线程不安全 */
+    private int value;
 
-    SensitiveTypeEnum hiddenType() default SensitiveTypeEnum.NONE;
+    public int get() {
+        return value;
+    }
+
+    public void set(int value) {
+        this.value = value;
+    }
 }

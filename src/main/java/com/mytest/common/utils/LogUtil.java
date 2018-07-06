@@ -18,7 +18,8 @@ package com.mytest.common.utils;
 
 import java.util.Date;
 
-import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 日志工具类
@@ -27,28 +28,40 @@ import org.apache.commons.lang.StringUtils;
  * @since 2018/05/25
  */
 public class LogUtil {
+    /** 日志 */
+    private final static Logger LOGGER = LoggerFactory.getLogger("TEST");
+
     /** 调用栈下标 */
-    public static final int INDEX = 2;
+    public static final int     INDEX  = 2;
 
     /**
-     * 打印下标
+     * 日志
      * 
      * @param format
      * @param args
      */
     public static void digest(String format, Object... args) {
-        System.out.println(String.format(format, args));
+        if (format == null) {
+            return;
+        }
+        LOGGER.warn(String.format(format, args));
     }
 
     /**
-     * 打印下标
+     * 日志（打印线程）
      *
      * @param format
      * @param args
      */
     public static void digestWithThread(String format, Object... args) {
-        System.out.println(StringUtils.join(String.format(format, args) , String.format(",threadName:%s,threadId:%s",
-            Thread.currentThread().getName(), Thread.currentThread().getId()))));
+        if (format == null) {
+            return;
+        }
+        StringBuilder sb = new StringBuilder(format.length() * 2);
+        sb.append(String.format(format, args));
+        sb.append(String.format(",threadName:%s,threadId:%s", Thread.currentThread().getName(),
+            Thread.currentThread().getId()));
+        LOGGER.warn(sb.toString());
     }
 
     /**
@@ -57,10 +70,10 @@ public class LogUtil {
     public static void digestLog() {
         StackTraceElement[] ste = Thread.currentThread().getStackTrace();
         if (ste.length < 3) {
-            System.out.println("skip digest method name");
+            LOGGER.warn("skip digest method name");
             return;
         }
-        System.out.println(String.format("%s.%s,processing,date:%s",
+        LOGGER.warn(String.format("%s.%s,processing,date:%s",
             Thread.currentThread().getStackTrace()[INDEX].getClassName(),
             Thread.currentThread().getStackTrace()[INDEX].getMethodName(),
             DateUtils.getNewFormatDateString(new Date(System.currentTimeMillis()))));
