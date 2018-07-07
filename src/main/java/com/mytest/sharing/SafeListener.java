@@ -16,27 +16,45 @@
  */
 package com.mytest.sharing;
 
-import com.mytest.common.annotation.NotThreadSafe;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+
+import com.mytest.common.annotation.ThreadSafe;
+import com.mytest.common.utils.LogUtil;
 
 /**
  * @author liqingyu
  * @since 2018/07/07
  */
-@NotThreadSafe
-public class ThisEscape {
-    public ThisEscape(EventSource source) {
-        // 隐含发布了EventListener的引用
-        // this引用会被新线程共享，在未完成构造之前，新的线程就可以看到它
-        source.registerListener(new EventListener() {
+@ThreadSafe
+public class SafeListener {
+    // listener不逸出
+    private final EventListener listener;
+
+    private SafeListener() {
+        listener = new EventListener() {
             public void onEvent(Event e) {
                 doSomething(e);
             }
-        });
+        };
     }
 
-    void doSomething(Event e) {
+    // 通过工厂方法来防止this引用在构造过程中的逸出
+    public static SafeListener newInstance(EventSource source) {
+        SafeListener safe = new SafeListener();
+        source.registerListener(safe.listener);
+        return safe;
     }
 
+    boolean doSomething(Event e) {
+        if (StringUtils.isNotBlank(e.getEventCode()) && StringUtils.isNotBlank(e.getTopic())) {
+            LogUtil.digest("Event:topic=%s,eventCode=%s", e.getTopic(), e.getEventCode());
+            return true;
+        }
+        return false;
+    }
 
     interface EventSource {
         void registerListener(EventListener e);
@@ -47,5 +65,8 @@ public class ThisEscape {
     }
 
     interface Event {
+        String getTopic();
+
+        String getEventCode();
     }
 }

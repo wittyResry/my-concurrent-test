@@ -48,7 +48,7 @@ public class SynchronizedIntegerTest {
         public void run() {
             for (int i = 0; i < 100; ++i) {
                 synchronized (synchronizedInteger) {
-                    // 可重入锁：这里必须要加锁，否则CAS不满足
+                    // 可重入锁：加锁是为了保证CAS不满足
                     synchronizedInteger.set(synchronizedInteger.get() + 1);
                 }
                 LogUtil.digestWithThread("%s", synchronizedInteger.get());
