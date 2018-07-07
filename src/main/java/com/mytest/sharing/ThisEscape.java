@@ -16,23 +16,35 @@
  */
 package com.mytest.sharing;
 
-import com.mytest.common.annotation.GuardedBy;
-import com.mytest.common.annotation.ThreadSafe;
+import com.mytest.common.annotation.NotThreadSafe;
 
 /**
  * @author liqingyu
- * @since 2018/07/06
+ * @since 2018/07/07
  */
-@ThreadSafe
-public class SynchronizedInteger {
-    @GuardedBy("this")
-    private int value = 0;
-
-    public synchronized int get() {
-        return value;
+@NotThreadSafe
+public class ThisEscape {
+    public ThisEscape(EventSource source) {
+        // 隐含发布了EventListener的引用
+        source.registerListener(new EventListener() {
+            public void onEvent(Event e) {
+                doSomething(e);
+            }
+        });
     }
 
-    public synchronized void set(int value) {
-        this.value = value;
+    void doSomething(Event e) {
+    }
+
+
+    interface EventSource {
+        void registerListener(EventListener e);
+    }
+
+    interface EventListener {
+        void onEvent(Event e);
+    }
+
+    interface Event {
     }
 }

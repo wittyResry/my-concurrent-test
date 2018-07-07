@@ -59,7 +59,7 @@ public class LogUtil {
         }
         StringBuilder sb = new StringBuilder(format.length() * 2);
         sb.append(String.format(format, args));
-        sb.append(String.format(",threadName:%s,threadId:%s", Thread.currentThread().getName(),
+        sb.append(String.format("[threadName:%s,threadId:%s]", Thread.currentThread().getName(),
             Thread.currentThread().getId()));
         LOGGER.warn(sb.toString());
     }

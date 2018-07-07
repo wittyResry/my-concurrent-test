@@ -16,23 +16,19 @@
  */
 package com.mytest.sharing;
 
-import com.mytest.common.annotation.GuardedBy;
-import com.mytest.common.annotation.ThreadSafe;
+import com.mytest.common.annotation.NotThreadSafe;
 
 /**
  * @author liqingyu
- * @since 2018/07/06
+ * @since 2018/07/07
  */
-@ThreadSafe
-public class SynchronizedInteger {
-    @GuardedBy("this")
-    private int value = 0;
+@NotThreadSafe
+public class UnsafeStates {
+    private String[] states = new String[] { "AK", "AL" /*...*/
+    };
 
-    public synchronized int get() {
-        return value;
-    }
-
-    public synchronized void set(int value) {
-        this.value = value;
+    // 对象逸出：此方法让外部通过变量引用
+    public String[] getStates() {
+        return states;
     }
 }
