@@ -4,8 +4,6 @@ import java.util.concurrent.CountDownLatch;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * @author liqingyu
  * @since 2018/06/06

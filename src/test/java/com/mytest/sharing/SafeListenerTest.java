@@ -1,12 +1,9 @@
 package com.mytest.sharing;
 
-import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.mytest.common.utils.LogUtil;
-
-import static org.junit.Assert.*;
 
 /**
  * @author liqingyu

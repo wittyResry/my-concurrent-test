@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import com.mytest.common.utils.MyReflectUtils;
 
-import static org.junit.Assert.*;
-
 /**
  * @author liqingyu
  * @since 2018/06/07

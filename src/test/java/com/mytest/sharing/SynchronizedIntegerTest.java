@@ -5,10 +5,6 @@ import java.util.concurrent.CountDownLatch;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.mytest.common.utils.LogUtil;
-
-import static org.junit.Assert.*;
-
 /**
  * @author liqingyu
  * @since 2018/07/07
