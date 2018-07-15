@@ -51,7 +51,6 @@ public class SynchronizedIntegerTest {
                     // 可重入锁：加锁是为了保证CAS不满足
                     synchronizedInteger.set(synchronizedInteger.get() + 1);
                 }
-                LogUtil.digestWithThread("%s", synchronizedInteger.get());
             }
             //执行完成
             countDownLatch.countDown();

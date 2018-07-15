@@ -16,6 +16,8 @@
  */
 package com.mytest.queuebuffer;
 
+import java.util.concurrent.CountDownLatch;
+
 import com.mytest.common.utils.LogUtil;
 
 /**
@@ -25,9 +27,11 @@ import com.mytest.common.utils.LogUtil;
 public class Consumer implements Runnable {
     /** queueBuffer */
     private QueueBuffer q;
+    private CountDownLatch c;
 
-    public Consumer(QueueBuffer q) {
+    public Consumer(QueueBuffer q, CountDownLatch c) {
         this.q = q;
+        this.c = c;
         new Thread(this, "Consumer").start();
     }
 
@@ -36,6 +40,10 @@ public class Consumer implements Runnable {
         while (true) {
             Integer i = q.get();
             LogUtil.digest("afterGet:%s", i);
+            if (i == 1000) {
+                c.countDown();
+                break;
+            }
         }
     }
 }

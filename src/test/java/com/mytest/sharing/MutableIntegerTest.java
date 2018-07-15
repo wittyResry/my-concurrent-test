@@ -26,7 +26,7 @@ public class MutableIntegerTest {
         }
         countDownLatch.await();
         System.out.println(mutableInteger.get());
-        Assert.assertEquals("并发测试", true, mutableInteger.get() < 100000);
+        Assert.assertEquals("并发测试", true, mutableInteger.get() <= 100000);
     }
 
     public class MyMutableIntegerTest implements Runnable {
@@ -44,7 +44,6 @@ public class MutableIntegerTest {
         public void run() {
             for (int i = 0; i < 100; ++i) {
                 mutableInteger.set(mutableInteger.get() + 1);
-                LogUtil.digestWithThread("%s", mutableInteger.get());
             }
             //执行完成
             countDownLatch.countDown();

@@ -1,5 +1,7 @@
 package com.mytest.queuebuffer;
 
+import java.util.concurrent.CountDownLatch;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,15 +12,12 @@ import static org.junit.Assert.*;
  */
 public class QueueBufferTest {
     @Test
-    public void test() {
+    public void test() throws InterruptedException {
         QueueBuffer q = new QueueBuffer();
-        Producer producer = new Producer(q);
-        Consumer consumer = new Consumer(q);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            //ignore
-        }
+        CountDownLatch c = new CountDownLatch(2);
+        Producer producer = new Producer(q, c);
+        Consumer consumer = new Consumer(q, c);
+        c.await();
     }
 
 }
