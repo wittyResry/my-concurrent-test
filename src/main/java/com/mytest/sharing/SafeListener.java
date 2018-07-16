@@ -16,9 +16,6 @@
  */
 package com.mytest.sharing;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 
 import com.mytest.common.annotation.ThreadSafe;

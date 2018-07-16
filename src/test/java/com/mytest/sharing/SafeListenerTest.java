@@ -32,6 +32,6 @@ public class SafeListenerTest {
             }
         };
         SafeListener safeListener = SafeListener.newInstance(source);
-        Assert.assertEquals("", true, safeListener.doSomething(e));;
+        Assert.assertEquals("²âÊÔ", true, safeListener.doSomething(e));;
     }
 }
