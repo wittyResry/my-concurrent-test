@@ -16,23 +16,40 @@
  */
 package com.mytest.sharing;
 
-import com.mytest.common.annotation.GuardedBy;
-import com.mytest.common.annotation.ThreadSafe;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * @author liqingyu
- * @since 2018/07/06
+ * @since 2018/07/19
  */
-@ThreadSafe
-public class SynchronizedInteger {
-    @GuardedBy("this")
-    private int value = 0;
+public class ConnectionDispenser {
+    private static final String DB_URL = "jdbc:mysql://localhost/mydatabase";
+    private ThreadLocal<Connection> connectionHolder
+            = new ThreadLocal<Connection>() {
+        /**
+         * 初始化连接器
+         *
+         * @return
+         */
+        @Override
+        protected Connection initialValue() {
+            try {
+                return DriverManager.getConnection(DB_URL);
+            } catch (SQLException e) {
+                throw new RuntimeException("Unable to acquire Connection", e);
+            }
+        }
+    };
 
-    public synchronized int get() {
-        return value;
+    /**
+     * 获取db连接
+     *
+     * @return
+     */
+    public Connection getConnection() {
+        return connectionHolder.get();
     }
 
-    public synchronized void set(int value) {
-        this.value = value;
-    }
 }

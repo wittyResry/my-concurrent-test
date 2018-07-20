@@ -2,8 +2,6 @@ package com.mytest.monitor;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * @author liqingyu
  * @since 2018/06/07

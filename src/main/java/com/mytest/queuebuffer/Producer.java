@@ -16,6 +16,8 @@
  */
 package com.mytest.queuebuffer;
 
+import java.util.concurrent.CountDownLatch;
+
 import com.mytest.common.utils.LogUtil;
 
 /**
@@ -25,19 +27,22 @@ import com.mytest.common.utils.LogUtil;
 public class Producer implements Runnable {
     /** queueBuffer */
     private QueueBuffer q;
+    private CountDownLatch c;
 
-    public Producer(QueueBuffer q) {
+    public Producer(QueueBuffer q, CountDownLatch c) {
         this.q = q;
+        this.c = c;
         new Thread(this, "Producer").start();
     }
 
     @Override
     public void run() {
         int i = 1;
-        while (true) {
+        while (i <= 1000) {
             //LogUtil.digest("beforePut:%s", i);
             q.put(i);
             ++i;
         }
+        c.countDown();
     }
 }
