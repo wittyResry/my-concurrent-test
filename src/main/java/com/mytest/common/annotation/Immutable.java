@@ -16,19 +16,11 @@
  */
 package com.mytest.common.annotation;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 /**
- * 条件保证
+ * 不可变
  *
  * @author liqingyu
- * @since 2018/07/06
+ * @since 2018/07/21
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface GuardedBy {
-    String value() default "";
+public @interface Immutable {
 }
