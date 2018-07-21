@@ -16,39 +16,45 @@
  */
 package com.mytest.sharing;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Vector;
+import java.math.BigInteger;
+import java.util.Arrays;
 
 import com.mytest.common.annotation.Immutable;
 
 /**
+ *
  * @author liqingyu
  * @since 2018/07/21
  */
 @Immutable
-public class ThreeStooges {
-    private final Set<String> stooges = new HashSet<String>();
+public class OneValueCache {
+    /** 数值 */
+    private final BigInteger   lastNumber;
+    /** 因子 */
+    private final BigInteger[] lastFactors;
 
     /**
-     * 构建不可变类
+     * 构造函数，创建一个不可变类来防止更新cache
+     *
+     * @param i
+     * @param factors
      */
-    public ThreeStooges() {
-        stooges.add("Moe");
-        stooges.add("Larry");
-        stooges.add("Curly");
+    public OneValueCache(BigInteger i, BigInteger[] factors) {
+        lastNumber = i;
+        lastFactors = Arrays.copyOf(factors, factors.length);
     }
 
-    public boolean isStooge(String name) {
-        return stooges.contains(name);
-    }
-
-    public String getStoogeNames() {
-        List<String> stooges = new Vector<String>();
-        stooges.add("Moe");
-        stooges.add("Larry");
-        stooges.add("Curly");
-        return stooges.toString();
+    /**
+     * 获取缓存
+     *
+     * @param i
+     * @return 如果不存在返回null
+     */
+    public BigInteger[] getFactors(BigInteger i) {
+        if (lastNumber == null || !lastNumber.equals(i)) {
+            return null;
+        } else {
+            return Arrays.copyOf(lastFactors, lastFactors.length);
+        }
     }
 }

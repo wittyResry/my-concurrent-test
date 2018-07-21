@@ -22,7 +22,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 由于什么条件
+ * 条件保证
  *
  * @author liqingyu
  * @since 2018/07/06

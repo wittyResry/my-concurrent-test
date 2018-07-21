@@ -14,41 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mytest.sharing;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Vector;
-
-import com.mytest.common.annotation.Immutable;
+package com.mytest.common.annotation;
 
 /**
+ * 不可变
+ *
  * @author liqingyu
  * @since 2018/07/21
  */
-@Immutable
-public class ThreeStooges {
-    private final Set<String> stooges = new HashSet<String>();
-
-    /**
-     * 构建不可变类
-     */
-    public ThreeStooges() {
-        stooges.add("Moe");
-        stooges.add("Larry");
-        stooges.add("Curly");
-    }
-
-    public boolean isStooge(String name) {
-        return stooges.contains(name);
-    }
-
-    public String getStoogeNames() {
-        List<String> stooges = new Vector<String>();
-        stooges.add("Moe");
-        stooges.add("Larry");
-        stooges.add("Curly");
-        return stooges.toString();
-    }
+public @interface Immutable {
 }
