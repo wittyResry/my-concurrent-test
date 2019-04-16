@@ -24,7 +24,7 @@ import com.mytest.common.annotation.ThreadSafe;
 
 /**
  * ÊµÀý·â±Õ
- * 
+ *
  * @author liqingyu
  * @since 2018/07/26
  */

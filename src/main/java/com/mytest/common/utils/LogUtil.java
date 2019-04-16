@@ -48,6 +48,22 @@ public class LogUtil {
     }
 
     /**
+     * 打印结果
+     *
+     * @param args
+     */
+    public static void info(Object... args) {
+        if (args == null) {
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Object o : args) {
+            sb.append(o);
+        }
+        LOGGER.info(sb.toString());
+    }
+
+    /**
      * 日志（打印线程）
      *
      * @param format
