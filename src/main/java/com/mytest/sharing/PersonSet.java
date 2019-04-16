@@ -14,24 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.mytest.common.annotation;
+package com.mytest.sharing;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.mytest.common.enums.SensitiveTypeEnum;
+import com.mytest.common.annotation.GuardedBy;
+import com.mytest.common.annotation.ThreadSafe;
 
 /**
- * Ãô¸Ð×Ö¶Î
- * 
+ * ÊµÀý·â±Õ
+ *
  * @author liqingyu
- * @since 2018/06/01
+ * @since 2018/07/26
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface SensitiveField {
+@ThreadSafe
+public class PersonSet {
+    @GuardedBy("this")
+    private final Set<Person> mySet = new HashSet<Person>();
 
-    SensitiveTypeEnum hiddenType() default SensitiveTypeEnum.NONE;
+    public synchronized void addPerson(Person p) {
+        mySet.add(p);
+    }
+
+    public synchronized boolean containsPerson(Person p) {
+        return mySet.contains(p);
+    }
+
+    interface Person {
+    }
 }

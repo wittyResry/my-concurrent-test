@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * @since 2018/07/06
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target(value = { ElementType.FIELD, ElementType.TYPE })
 public @interface GuardedBy {
     String value() default "";
 }
